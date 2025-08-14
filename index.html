@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>منزل أحمد بن حمدان بن سعيد البادي</title>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#0e7a6f">
+</head>
+<body>
+
+
+  <script>
+    
+    const OMAN_PHONE_E164 = "+96895999205"; 
+    //  إحداثيات المنزل (خط العرض, خط الطول)
+   const HOME_LAT = 24.1403885;
+   const HOME_LNG = 56.8374444;
+    // نص واتساب 
+    const WHATSAPP_TEXT = "السلام عليكم ورحمة الله وبركاتة.";
+  </script>
+
+  <header class="topbar">
+    <div class="brand">
+  <span class="logo-badge" aria-hidden="true">
+  <img src="assets/images/logo.png" alt="شعار المنزل">
+</span>
+      <h1>منزل أحمد بن حمدان بن سعيد البادي</h1>
+    </div>
+    <button class="mode-toggle" id="modeToggle" title="تبديل الوضع">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+  </header>
+
+  <main>
+    <!-- قسم 1 -->
+    <section class="hero">
+      <div class="hero-content">
+        <h2>أهلًا وسهلًا</h2>
+        <p>صفحة تعريفية بسيطة وأنيقة تضم صور المنزل، الموقع على الخريطة، وطرق التواصل.</p>
+        <div class="cta-wrap">
+          <a id="callBtn" class="btn primary"><i class="fa-solid fa-phone"></i> اتصال</a>
+          <a id="waBtn" class="btn whats"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+          <a id="mapBtn" class="btn ghost"><i class="fa-solid fa-location-dot"></i> افتح في الخرائط</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- صور المنزل (صورتان) -->
+    <section class="gallery" aria-label="صور المنزل">
+      <div class="gallery-grid">
+
+        <figure class="card">
+          <img src="assets/images/house-1.jpg" alt="واجهة المنزل صباح" loading="lazy" />
+          <figcaption>واجهة المنزل صباح</figcaption>
+        </figure>
+        <figure class="card">
+          <img src="assets/images/house-2.jpg" alt="واجهة المنزل مساء" loading="lazy" />
+          <figcaption>واجهة المنزل مساء</figcaption>
+        </figure>
+      </div>
+     
+    </section>
+
+    <!-- الخريطة -->
+    <section class="map-section" aria-label="موقع المنزل">
+      <h3><i class="fa-solid fa-map-location-dot"></i> موقع المنزل</h3>
+      <!-- تضمين خرائط Google (تحديث src تلقائيًا عبر السكربت بالأسفل) -->
+      <div class="map-embed">
+        <iframe id="gmapFrame" title="خريطة الموقع" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+      <div class="map-actions">
+        <a id="directionsBtn" class="btn small"><i class="fa-solid fa-route"></i> ابدأ التنقّل</a>
+        <a id="copyLocBtn" class="btn small ghost"><i class="fa-solid fa-copy"></i> نسخ الإحداثيات</a>
+      </div>
+      
+    </section>
+
+    <!-- بيانات الاتصال -->
+    <section class="contact" aria-label="التواصل">
+      <h3><i class="fa-solid fa-headset"></i> طرق التواصل</h3>
+      <ul class="contact-list">
+        <li><i class="fa-solid fa-phone"></i> هاتف: <a id="phoneLink"></a></li>
+        <li><i class="fa-brands fa-whatsapp"></i> واتساب: <a id="waLink"></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+  <div class="footer-left">
+    <small>© <span id="year"></span> منزل أحمد بن حمدان بن سعيد البادي</small>
+  </div>
+  <div class="footer-right">
+    <small>
+      برمجة وتصميم بواسطة 
+      <a href="https://example.com" target="_blank">يوسف الوهيبي</a>
+    </small>
+  </div>
+</footer>
+
+
+  <script>
+    // تفعيل الروابط والأزرار بناءً على المتغيّرات
+    (function init() {
+      const clean = OMAN_PHONE_E164.replace(/\s+/g,'');
+      const telHref = `tel:${clean}`;
+      const waHref  = `https://wa.me/${clean.replace('+','')}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
+      const gmapsEmbed = `https://www.google.com/maps?q=${HOME_LAT},${HOME_LNG}&hl=ar&z=16&output=embed`;
+      const gmapsLink  = `https://www.google.com/maps?q=${HOME_LAT},${HOME_LNG}`;
+      const gmapsNav   = `https://www.google.com/maps/dir/?api=1&destination=${HOME_LAT},${HOME_LNG}`;
+
+      document.getElementById('gmapFrame').src = gmapsEmbed;
+
+      // أزرار أعلى الصفحة
+      document.getElementById('callBtn').href = telHref;
+      document.getElementById('waBtn').href   = waHref;
+      document.getElementById('mapBtn').href  = gmapsLink;
+      // أزرار قسم الخريطة
+      document.getElementById('directionsBtn').href = gmapsNav;
+
+      // قائمة التواصل
+      const phoneLink = document.getElementById('phoneLink');
+      phoneLink.href = telHref; phoneLink.textContent = OMAN_PHONE_E164;
+      const waLink = document.getElementById('waLink');
+      waLink.href = waHref; waLink.textContent = OMAN_PHONE_E164;
+
+      // نسخ الإحداثيات
+      document.getElementById('copyLocBtn').addEventListener('click', async () => {
+        const text = `${HOME_LAT}, ${HOME_LNG}`;
+        try {
+          await navigator.clipboard.writeText(text);
+          const old = document.getElementById('copyLocBtn').innerHTML;
+          document.getElementById('copyLocBtn').innerHTML = `<i class="fa-solid fa-check"></i> تم النسخ`;
+          setTimeout(()=> document.getElementById('copyLocBtn').innerHTML = old, 1600);
+        } catch(e) { alert('تعذّر النسخ، انسخ يدويًا: ' + text); }
+      });
+
+      // تبديل الوضع (فاتح/داكن)
+      const modeToggle = document.getElementById('modeToggle');
+      const key = 'site-theme';
+      const saved = localStorage.getItem(key);
+      if (saved) document.documentElement.dataset.theme = saved;
+      modeToggle.addEventListener('click', () => {
+        const cur = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = cur;
+        localStorage.setItem(key, cur);
+      });
+
+      // سنة الفوتر
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+  
+</body>
+</html>
